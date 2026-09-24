@@ -1,0 +1,199 @@
+{
+  "created_utc": "2026-09-24T07:42:57.530409+00:00",
+  "config": {
+    "data": {
+      "tickers": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "start": "2005-01-01",
+      "end": "2026-01-01",
+      "cache": "data/raw/prices.csv"
+    },
+    "research": {
+      "oos_start": "2012-01-01",
+      "horizon": 5,
+      "execution_lag": 1,
+      "annualization": 252,
+      "ewma_lambda": 0.94,
+      "seed": 42,
+      "min_train": 756,
+      "validation_size": 126,
+      "validation_splits": 2,
+      "ridge_alphas": [
+        0.1,
+        10.0,
+        1000.0
+      ],
+      "lgbm_grid": [
+        {
+          "n_estimators": 100,
+          "num_leaves": 7,
+          "min_child_samples": 40,
+          "reg_lambda": 1.0
+        },
+        {
+          "n_estimators": 200,
+          "num_leaves": 7,
+          "min_child_samples": 80,
+          "reg_lambda": 5.0
+        },
+        {
+          "n_estimators": 150,
+          "num_leaves": 15,
+          "min_child_samples": 80,
+          "reg_lambda": 10.0
+        }
+      ]
+    },
+    "portfolio": {
+      "trend_window": 126,
+      "target_vol": 0.1,
+      "vol_floor": 0.05,
+      "gross_cap": 1.0,
+      "asset_cap": 0.6,
+      "cost_bps": [
+        0,
+        5,
+        10,
+        20
+      ],
+      "base_cost_bps": 5,
+      "short_borrow_bps": 50,
+      "cash_rate": 0.0
+    },
+    "inference": {
+      "n_bootstrap": 2000,
+      "block_lengths": [
+        10,
+        20,
+        60
+      ],
+      "primary_block": 20
+    }
+  },
+  "data": {
+    "source": "Yahoo Finance via yfinance",
+    "yfinance_version": "1.7.0",
+    "retrieved_utc": "2026-09-24T04:51:46.081598+00:00",
+    "request": {
+      "tickers": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "start": "2005-01-01",
+      "end": "2026-01-01"
+    },
+    "adjustment": "auto_adjust=True: split/dividend adjusted OHLC; repair=False",
+    "sha256": "9c25d50739b325ed69f660fef286de0ae9c2f00d399806ac20d46cd84ea8f3eb",
+    "price_file": "data/raw/prices.csv",
+    "quality": {
+      "n_rows": 15849,
+      "n_dates": 5283,
+      "start": "2005-01-03",
+      "end": "2025-12-31",
+      "tickers": [
+        "SPY",
+        "TLT",
+        "GLD"
+      ],
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "zero_volume_rows": 0,
+      "max_abs_daily_log_return": 0.13557696379424655,
+      "calendar_gaps_over_4_days": 2
+    }
+  },
+  "forecast_fingerprint": "8f0f8bed60be6da828cb388f951b1963adbcf2159b72c5a9792a0a1f178e6651",
+  "source_hashes": {
+    "__init__.py": "f1989efae2fd7aa35eade6c5a569df7794999dd94e11b737b2afe682ae1b33d7",
+    "cli.py": "ac999a391499a31f9630cc2f2a9cd9670434997127d8d558a78a96f4a6078883",
+    "data.py": "43349e1deb1317cdaec39223e90afdd2667bd04fcb55a6e2748088ffb3b1b618",
+    "features.py": "cdb13d0954aaf7c9475bf62528eb34de0c3c3cf7b4978d7c8689f6b70239566c",
+    "plots.py": "a8a757098226aab76a915e5c6d4361963a6f8cae22bac0d0699546546816bc93",
+    "portfolio.py": "441b524336d1e14d1b4e0987ba09207a65c2ff4819e53348bf3053d077539793",
+    "report.py": "75630982c48fc90dba39d05a1258a4112eb5b0ee9def4219320406c42a013d7e",
+    "statistics.py": "bf0770738ab0d3657d1928618e85d06da97c02083a49e10eedbc39662f907c1b",
+    "walkforward.py": "691241fcad0741508c31f8196991413327cb8501188c4ed7bbd5cf68c62e744b"
+  },
+  "table_hashes": {
+    "predictions": "25999f82ac133992205fd4e0b0942cf04f52abefa6e81bcef8621ca9336179b7",
+    "folds": "3c277f3f5e2254f0a783567124b81aad7bacc531c80e17b6997a7e975c765282",
+    "tuning": "a272940d901f223d88cdadc54bb702083e4060619c7f5dfe08c188e4fecda12c",
+    "importance": "82683e16b70a900473439b5349227a6c3da056c361d922411b549c0b8f603518",
+    "daily": "c90906d6323c69e5c259f8555b64c3d33837b0aa4732c67a8ff0e79f4d7f7012",
+    "portfolio_metrics": "73d527d8147395caa7d6c1df07b955925f1f29a89e9f0287627ffc7f463f97ac",
+    "weights": "8b77786aad795076cc467efdd375f97778e3edcd29c56c0004358ea128c70caf",
+    "forecast_metrics": "b8671b280a8c6898199ebcd2b0a7684f595bd90e1ee241d313f681c19de34c2f",
+    "forecast_inference": "491d1b7827fbc8f0f4e32363880e9a4204443fac6d03e894307fab9d6b74a965",
+    "strategy_inference": "fba8b8c2f8ad47ae1c948bcc9c6a41f3b4257705b89af2735f276179193eb509",
+    "yearly_forecast_metrics": "925fc0bff9122d94a14b36d2c3020cd97ffeac4e7508369dadb5561509c6626f"
+  },
+  "features": {
+    "risk_only": [
+      "log_rv5",
+      "log_rv21",
+      "log_rv63",
+      "log_ewma"
+    ],
+    "no_cross": [
+      "log_rv5",
+      "log_rv21",
+      "log_rv63",
+      "log_ewma",
+      "return_1",
+      "return_5",
+      "return_21",
+      "return_63",
+      "abs_return_1",
+      "log_downside21",
+      "rv5_rv63_ratio",
+      "vol_of_vol21",
+      "drawdown63",
+      "log_parkinson21"
+    ],
+    "full": [
+      "log_rv5",
+      "log_rv21",
+      "log_rv63",
+      "log_ewma",
+      "return_1",
+      "return_5",
+      "return_21",
+      "return_63",
+      "abs_return_1",
+      "log_downside21",
+      "rv5_rv63_ratio",
+      "vol_of_vol21",
+      "drawdown63",
+      "log_parkinson21",
+      "cross_SPY_log_rv21",
+      "cross_SPY_return5",
+      "cross_SPY_corr63",
+      "cross_TLT_log_rv21",
+      "cross_TLT_return5",
+      "cross_TLT_corr63",
+      "cross_GLD_log_rv21",
+      "cross_GLD_return5",
+      "cross_GLD_corr63"
+    ]
+  },
+  "python": "3.13.7",
+  "platform": "macOS-26.2-arm64-arm-64bit-Mach-O",
+  "versions": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "matplotlib": "3.11.2",
+    "yfinance": "1.7.0"
+  },
+  "elapsed_seconds": 5.145066832890734,
+  "n_origins": 3514,
+  "n_predictions": 84336,
+  "oos_origin_start": "2012-01-03",
+  "oos_origin_end": "2025-12-22"
+}

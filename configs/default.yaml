@@ -1,0 +1,34 @@
+data:
+  tickers: [SPY, TLT, GLD]
+  start: '2005-01-01'
+  end: '2026-01-01'  # exclusive; freeze at the last full calendar year
+  cache: data/raw/prices.csv
+research:
+  oos_start: '2012-01-01'
+  horizon: 5
+  execution_lag: 1
+  annualization: 252
+  ewma_lambda: 0.94
+  seed: 42
+  min_train: 756
+  validation_size: 126
+  validation_splits: 2
+  ridge_alphas: [0.1, 10.0, 1000.0]
+  lgbm_grid:
+    - {n_estimators: 100, num_leaves: 7, min_child_samples: 40, reg_lambda: 1.0}
+    - {n_estimators: 200, num_leaves: 7, min_child_samples: 80, reg_lambda: 5.0}
+    - {n_estimators: 150, num_leaves: 15, min_child_samples: 80, reg_lambda: 10.0}
+portfolio:
+  trend_window: 126
+  target_vol: 0.10
+  vol_floor: 0.05
+  gross_cap: 1.0
+  asset_cap: 0.60
+  cost_bps: [0, 5, 10, 20]
+  base_cost_bps: 5
+  short_borrow_bps: 50
+  cash_rate: 0.0
+inference:
+  n_bootstrap: 2000
+  block_lengths: [10, 20, 60]
+  primary_block: 20

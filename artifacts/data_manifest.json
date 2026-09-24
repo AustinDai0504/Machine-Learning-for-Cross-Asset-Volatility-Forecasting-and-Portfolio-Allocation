@@ -1,0 +1,33 @@
+{
+  "source": "Yahoo Finance via yfinance",
+  "yfinance_version": "1.7.0",
+  "retrieved_utc": "2026-09-24T04:51:46.081598+00:00",
+  "request": {
+    "tickers": [
+      "SPY",
+      "TLT",
+      "GLD"
+    ],
+    "start": "2005-01-01",
+    "end": "2026-01-01"
+  },
+  "adjustment": "auto_adjust=True: split/dividend adjusted OHLC; repair=False",
+  "sha256": "9c25d50739b325ed69f660fef286de0ae9c2f00d399806ac20d46cd84ea8f3eb",
+  "price_file": "data/raw/prices.csv",
+  "quality": {
+    "n_rows": 15849,
+    "n_dates": 5283,
+    "start": "2005-01-03",
+    "end": "2025-12-31",
+    "tickers": [
+      "SPY",
+      "TLT",
+      "GLD"
+    ],
+    "missing_cells": 0,
+    "duplicate_rows": 0,
+    "zero_volume_rows": 0,
+    "max_abs_daily_log_return": 0.13557696379424655,
+    "calendar_gaps_over_4_days": 2
+  }
+}
