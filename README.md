@@ -7,8 +7,7 @@ transaction costs, feature ablations and paired block-bootstrap inference.
 
 **Status:** implemented and evaluated on real historical data. This is a research
 backtest, not a live trading system.
-
-**[中文完整研究报告](#research-report)** · [复现运行](#reproduce) ·
+[Run instruction](#reproduce) ·
 [数据说明](#data-provenance) · [工程接口](#implementation-contract) ·
 [简历与面试准备](#career-notes)
 
