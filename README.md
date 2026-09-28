@@ -448,11 +448,6 @@ This section records the interface and research decisions shared by the implemen
 
 <a id="career-notes"></a>
 
-## 简历表述与面试准备
-
-这份仓库已经完成第一版真实数据实验，可以把“In Development”更新为“Implemented & Evaluated — Ongoing Research”。最终投递前，应亲自完整运行并能解释核心代码；面试中如实说明 AI 在实现或审查中的辅助，不把尚未完成的扩展写成成果。
-
-### 英文简历版本
 
 **Machine Learning for Cross-Asset Volatility Forecasting and Portfolio Allocation**  
 *Independent Research Project — Implemented & Evaluated*
@@ -460,35 +455,3 @@ This section records the interface and research decisions shared by the implemen
 - Built a reproducible SPY/TLT/GLD volatility research pipeline with Ridge and LightGBM, evaluated over 14 annual walk-forward folds and 3,514 out-of-sample forecast dates per asset; reduced pooled QLIKE by 11.7% and 7.8%, respectively, versus EWMA.
 - Implemented nested time-based tuning, label-overlap purging, train-only preprocessing, feature ablation and paired block-bootstrap inference with Holm-adjusted forecast comparisons.
 - Backtested forecast-sized trend portfolios with delayed execution, drift-aware turnover and 0–20 bps transaction-cost scenarios; found that improved forecast accuracy did not improve net Sharpe over EWMA, identifying the limits of forecast-driven allocation.
-
-如果简历空间有限，删除首条中的部分样本数字，保留“14 annual walk-forward folds”和实际相对 QLIKE 结果。不要把“QLIKE下降11.7%”写成“波动率准确率提高11.7%”；QLIKE是损失函数，不是准确率。
-
-### 中文版本
-
-- 搭建 SPY、TLT、GLD 波动率预测研究框架，以14个年度滚动样本外折比较 Ridge、LightGBM 与历史波动率/EWMA，Ridge 和 LightGBM 的汇总 QLIKE 分别相对 EWMA 降低11.7%和7.8%。
-- 实现嵌套时间验证、未来标签重叠剔除、训练期标准化及特征消融，并使用保留时间与跨资产依赖的配对区块 Bootstrap 和 Holm 校正评估预测差异。
-- 在统一趋势信号下回测预测驱动仓位，纳入成交延迟、持仓漂移、单边交易费及借券成本，发现预测改进未转化为优于 EWMA 的扣费后 Sharpe。
-
-### 面试时必须能解释的内容
-
-| 常见追问 | 本项目中的回答要点 |
-|---|---|
-| 为什么不是随机 train/test split？ | 未来样本不能用于预测过去，且5日标签重叠会让边界两边共享收益。 |
-| 仅 shift 特征就没有泄漏了吗？ | 不够；训练标签在预测边界前也必须完整可观测，用 label_end 做 purge。 |
-| 为什么收益从 t+2 开始？ | t 收盘产生信号，预留一天在 t+1 收盘成交，新仓位只能赚随后区间收益。 |
-| 为什么预测 log 方差？ | 保证正值并减轻尺度偏斜；指数逆变换存在 Jensen 偏差，训练残差 smearing 只是近似修正。 |
-| 为什么用 QLIKE？ | 它针对正方差预测，能在一定噪声代理假设下提供稳健比较；仍需说明代理噪声与条件。 |
-| 为什么 pooled 不等于三倍独立样本量？ | 同日资产相关，邻近标签重叠；先按日平均资产损失，bootstrap 同步抽日期块。 |
-| 为什么 LightGBM 没有赢？ | 样本量有限且风险过程变化，复杂度并不保证优势。它的QLIKE优于EWMA，但扣费后策略Sharpe更低。 |
-| 跨资产特征有价值吗？ | 本版 full 相对 no_cross 的 pooled QLIKE 更高；只能说本版没有显示增量改善，不能断言普遍无效。 |
-| 为什么预测更好却策略更差？ | 优化损失与持仓收益不同；换手、仓位截断、方向错误及期限匹配都可能影响，未逐项作因果分解。 |
-| 换手怎么计算？ | 目标持仓与收益漂移后持仓的交易名义金额绝对值之和，除以交易前NAV，包含首尾交易。 |
-| 10%是不是实际风险目标？ | 只是忽略相关性的初始配置参数，仓位限制会改变风险，实际波动必须单独测量。 |
-| 显著性是否证明能赚钱？ | 不能；预测损失显著改善不代表策略收益显著提高，bootstrap也没有覆盖所有研究者选择。 |
-| 项目最大不足是什么？ | 三只事后选择ETF、日线复权数据、零现金利率、恒定成本、没有永久未见的最终holdout。 |
-
-### GitHub 展示建议
-
-仓库首页使用本 README，集中展示完整研究报告、图表和复现方法。保留不支持 ML 策略增益的结论；这比挑选最好的净值更能展示研究判断力。发布前运行 `pytest -q`、`ruff check src tests` 和 `crossvol run --offline`。原始行情默认不加入 Git；推送源码、配置、汇总结果与图表即可。
-
-所有数字对应 [本次研究报告](#research-report) 和 `artifacts/tables/`。数据或方法更新后，应同步更新这里的简历数字；不要把结果固定写成永恒结论。
